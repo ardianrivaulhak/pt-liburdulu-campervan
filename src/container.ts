@@ -19,6 +19,9 @@ import { AttributeRoutes } from "./presentation/routes/attribute-routes";
 
 // Domain Repository
 import { UserRepository } from "@/domain/service/user-repository";
+import { DataStockRepository } from "@/domain/service/data-stock-repository";
+import { RawDataRepository } from "@/domain/service/raw-data-repository";
+import { GeneralDashboardRepository } from "@/domain/service/general-dashboard-repository";
 import { CityRepository } from "./domain/service/city-repository";
 import { DestinationRepository } from "./domain/service/destination-repository";
 import { UnitRepository } from "./domain/service/unit-repository";
@@ -34,6 +37,9 @@ import { AttributeRepository } from "./domain/service/attribute-repository";
 
 // Domain Repository / Infrastructur implementation
 import { UserSequelizeRepository } from "@/persistence/repository/user-sequelize-repository";
+import { GeneralDashboardSequelizeRepository } from "@/persistence/repository/general-dashboard-sequelize-repository";
+import { DataStockSequelizeRepository } from "@/persistence/repository/data-stock-sequelize-repository";
+import { RawDataSequelizeRepository } from "@/persistence/repository/raw-data-sequelize-repository";
 import { CitySequelizeRepository } from "./persistence/repository/city-sequelize-repository";
 import { DestinationSequelizeRepository } from "./persistence/repository/destination-sequelize-repository";
 import { UnitSequelizeRepository } from "./persistence/repository/unit-sequelize-repository";
@@ -149,6 +155,18 @@ container.bind(AttributeController).toSelf();
 container
     .bind<UserRepository>(TYPES.UserRepository)
     .to(UserSequelizeRepository);
+container
+    .bind<RawDataRepository>(TYPES.RawDataRepository)
+    .to(RawDataSequelizeRepository);
+container
+    .bind<GeneralDashboardRepository>(TYPES.GeneralDashboardRepository)
+    .to(GeneralDashboardSequelizeRepository);
+container
+    .bind<DataStockRepository>(TYPES.DataStockRepository)
+    .to(DataStockSequelizeRepository);
+container
+    .bind<RawDataRepository>(TYPES.RawDataRepository)
+    .to(RawDataSequelizeRepository);
 container
     .bind<CityRepository>(TYPES.CityRepository)
     .to(CitySequelizeRepository);
