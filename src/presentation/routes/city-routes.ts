@@ -15,7 +15,7 @@ export class CityRoutes {
         router.get(
             `/${this.route}`,
             asyncWrap(
-                this.CityControllerInstance.get.bind(
+                this.CityControllerInstance.getDataTable.bind(
                     this.CityControllerInstance
                 )
             )
@@ -41,6 +41,15 @@ export class CityRoutes {
             `/${this.route}`,
             asyncWrap(
                 this.CityControllerInstance.store.bind(
+                    this.CityControllerInstance
+                )
+            )
+        );
+
+        router.delete(
+            `/${this.route}/:id`,
+            asyncWrap(
+                this.CityControllerInstance.destroy.bind(
                     this.CityControllerInstance
                 )
             )

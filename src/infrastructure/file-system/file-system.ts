@@ -25,7 +25,11 @@ export class FileSystem {
         return true;
     }
 
-    public static update(file: IMulterFile, dest: string, oldFile?: string): string {
+    public static update(
+        file: IMulterFile,
+        dest: string,
+        oldFile?: string
+    ): string {
         if (oldFile) {
             if (fs.pathExistsSync(oldFile)) {
                 unlink(oldFile, (err) => {

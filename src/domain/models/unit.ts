@@ -1,3 +1,4 @@
+import { IDestination } from "./destination";
 import { Entity } from "./entity";
 import { IGalery } from "./galery";
 
@@ -5,8 +6,8 @@ export interface IUnit {
     id?: string;
     name: string;
     description: string;
-    galeryId: string;
-    galery?: IGalery | undefined;
+    galeries?: IGalery[];
+    destinations?: IDestination[];
     createdAt?: Date;
     updatedAt?: Date | null;
     deletedAt?: Date | null;
@@ -27,8 +28,8 @@ export class Unit extends Entity<IUnit> {
             id: this._id,
             name: this.name,
             description: this.description,
-            galeryId: this.galeryId,
-            galery: this.galery,
+            galeries: this.galeries,
+            destinations: this.destinations,
             createdAt: this.createdAt,
             updatedAt: this.updatedAt,
             deletedAt: this.deletedAt,
@@ -46,12 +47,13 @@ export class Unit extends Entity<IUnit> {
     get description(): string {
         return this.props.description;
     }
-    get galeryId(): string {
-        return this.props.galeryId;
+
+    get galeries(): IGalery[] {
+        return this.props.galeries || [];
     }
 
-    get galery(): IGalery | undefined {
-        return this.props.galery;
+    get destinations(): IDestination[] {
+        return this.props.destinations || [];
     }
 
     get createdAt(): undefined | Date {

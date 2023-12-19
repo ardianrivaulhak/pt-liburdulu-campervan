@@ -13,25 +13,34 @@ import { Trip } from "./trip-sequelize";
 (async () => {
     // Core Model Synchronisation
     await User.sync({ alter: { drop: false } });
-    await DataStock.sync({ alter: true });
-    await Galery.sync({ alter: { drop: true } });
-    await City.sync({ alter: { drop: true } });
-    await Unit.sync({ alter: { drop: true } });
+    await Unit.sync({ alter: { drop: false } });
+    await DataStock.sync({ alter: false });
+    await Galery.sync({ alter: { drop: false } });
+    await City.sync({ alter: { drop: false } });
     await Destination.sync({ alter: { drop: true } });
-    await PickPoint.sync({ alter: { drop: true } });
+    await PickPoint.sync({ alter: { drop: false } });
     await Trip.sync({ alter: { drop: true } });
 
     // Apps Model Synchronisation
 })();
 
 // Core Model Assosiation
-Unit.belongsTo(Galery, {
-    foreignKey: "galeryId",
+Unit.hasMany(Galery, {
+    foreignKey: "unitId",
     as: "galeries",
 });
 
-Galery.hasMany(Unit, {
-    foreignKey: "galeryId",
+Galery.belongsTo(Unit, {
+    foreignKey: "unitId",
+});
+
+Unit.hasMany(Destination, {
+    foreignKey: "unitId",
+    as: "destinations",
+});
+
+Destination.belongsTo(Unit, {
+    foreignKey: "unitId",
 });
 
 Trip.belongsTo(City, {

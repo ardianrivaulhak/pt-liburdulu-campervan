@@ -13,6 +13,7 @@ export class Galery extends Model<
 > {
     declare id: CreationOptional<string>;
     declare imageUrl: string;
+    declare unitId: string;
     declare created_at: CreationOptional<Date>;
     declare updated_at: CreationOptional<Date>;
     declare deleted_at: CreationOptional<Date>;
@@ -25,6 +26,7 @@ Galery.init(
             primaryKey: true,
         },
         imageUrl: DataTypes.STRING,
+        unitId: DataTypes.STRING,
         created_at: DataTypes.DATE,
         updated_at: DataTypes.DATE,
         deleted_at: DataTypes.DATE,

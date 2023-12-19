@@ -13,6 +13,7 @@ export class Destination extends Model<
 > {
     declare id: CreationOptional<string>;
     declare name: string;
+    declare unitId: string;
     declare created_at: CreationOptional<Date>;
     declare updated_at: CreationOptional<Date>;
     declare deleted_at: CreationOptional<Date>;
@@ -25,6 +26,7 @@ Destination.init(
             primaryKey: true,
         },
         name: DataTypes.STRING,
+        unitId: DataTypes.STRING,
         created_at: DataTypes.DATE,
         updated_at: DataTypes.DATE,
         deleted_at: DataTypes.DATE,

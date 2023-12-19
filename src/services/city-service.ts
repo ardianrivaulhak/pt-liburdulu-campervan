@@ -14,30 +14,46 @@ export class CityService {
     ) {}
 
     public async get(): Promise<ICity[]> {
-        throw new Error("This data import from repository");
+        const data = await this._repository.get();
+
+        const cityDto = data.map((el) => el.unmarshal());
+        return cityDto;
     }
 
     public async show(id: string): Promise<ICity> {
-        throw new Error("This data import from repository");
+        const data = await this._repository.show(id);
+
+        return data.unmarshal();
     }
 
     public async store(_city: ICity): Promise<ICity> {
-        // create need unmarshal ( return city.unmarshal)
-        throw new Error("This data import from repository");
+        const data = await this._repository.store(
+            City.create({
+                name: _city.name,
+            })
+        );
+        return data.unmarshal();
     }
 
-    public async update(id: string, _city: ICity): Promise<ICity> {
-        // update need unmarshal ( return city.unmarshal)
-        throw new Error("This data import from repository");
+    public async update(cityId: string, _city: ICity): Promise<ICity> {
+        const toUpdateCity = City.create({
+            id: _city.id,
+            name: _city.name,
+        });
+        const city = await this._repository.update(cityId, toUpdateCity);
+        return city.unmarshal();
     }
 
-    public async destroy(id: string): Promise<boolean> {
-        throw new Error("This data import from repository");
+    public async destroy(cityId: string): Promise<boolean> {
+        const data = await this._repository.show(cityId);
+        await this._repository.destroy(cityId);
+        return true;
     }
 
     public async getDataTable(
         param: TDataTableParam
     ): Promise<ITableData<ICity>> {
-        throw new Error("This data import from repository");
+        const data = await this._repository.getDataTable(param);
+        return data.unmarshal();
     }
 }

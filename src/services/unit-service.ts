@@ -14,30 +14,48 @@ export class UnitService {
     ) {}
 
     public async get(): Promise<IUnit[]> {
-        throw new Error("This data import from repository");
+        const data = await this._repository.get();
+
+        const dto = data.map((el) => el.unmarshal());
+        return dto;
     }
 
-    public async show(id: string): Promise<IUnit> {
-        throw new Error("This data import from repository");
+    public async show(unitId: string): Promise<IUnit> {
+        const data = await this._repository.show(unitId);
+
+        return data.unmarshal();
     }
 
     public async store(_unit: IUnit): Promise<IUnit> {
-        // create need unmarshal ( return Unit.unmarshal)
-        throw new Error("This data import from repository");
+        const data = await this._repository.store({
+            id: _unit.id,
+            name: _unit.name,
+            description: _unit.description,
+        });
+
+        return data.unmarshal();
     }
 
-    public async update(id: string, _unit: IUnit): Promise<IUnit> {
-        // update need unmarshal ( return Unit.unmarshal)
-        throw new Error("This data import from repository");
+    public async update(unitId: string, _unit: IUnit): Promise<IUnit> {
+        const _update = Unit.create({
+            id: _unit.id,
+            name: _unit.name,
+            description: _unit.description,
+        });
+        const city = await this._repository.update(unitId, _update);
+        return city.unmarshal();
     }
 
-    public async destroy(id: string): Promise<boolean> {
-        throw new Error("This data import from repository");
+    public async destroy(unitId: string): Promise<boolean> {
+        const data = await this._repository.show(unitId);
+        await this._repository.destroy(unitId);
+        return true;
     }
 
     public async getDataTable(
         param: TDataTableParam
     ): Promise<ITableData<IUnit>> {
-        throw new Error("This data import from repository");
+        const data = await this._repository.getDataTable(param);
+        return data.unmarshal();
     }
 }

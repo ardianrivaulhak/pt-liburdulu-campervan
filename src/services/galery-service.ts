@@ -15,30 +15,59 @@ export class GaleryService {
     ) {}
 
     public async get(): Promise<IGalery[]> {
-        throw new Error("This data import from repository");
+        const data = await this._repository.get();
+
+        const galeryDto = data.map((el) => el.unmarshal());
+        return galeryDto;
     }
 
-    public async show(id: string): Promise<IGalery> {
-        throw new Error("This data import from repository");
-    }
+    public async show(galeryId: string): Promise<IGalery> {
+        const data = await this._repository.show(galeryId);
 
+        return data.unmarshal();
+    }
     public async store(_galery: IGalery): Promise<IGalery> {
-        // create need unmarshal ( return Desti.unmarshal)
-        throw new Error("This data import from repository");
+        const galeryData = Galery.create({
+            imageUrl: _galery.imageUrl,
+            unitId: _galery.unitId,
+        }) as Galery;
+
+        if (typeof _galery.imageUrl === "object") {
+            const imageUrl = FileSystem.store(_galery.imageUrl, "galery");
+            (galeryData as any).imageUrl = imageUrl;
+        }
+
+        const data = await this._repository.store(galeryData);
+
+        return data.unmarshal();
     }
 
-    public async update(id: string, _galery: IGalery): Promise<IGalery> {
-        // update need unmarshal ( return Desti.unmarshal)
-        throw new Error("This data import from repository");
+    public async update(galeryId: string, _galery: IGalery): Promise<IGalery> {
+        const toUpdateGalery = Galery.create({
+            id: _galery.id,
+            imageUrl: _galery.imageUrl,
+            unitId: _galery.unitId,
+        });
+
+        if (typeof _galery.imageUrl === "object") {
+            const imageUrl = FileSystem.store(_galery.imageUrl, "galery");
+            (toUpdateGalery as any).imageUrl = imageUrl;
+        }
+        const city = await this._repository.update(galeryId, toUpdateGalery);
+        return city.unmarshal();
     }
 
-    public async destroy(id: string): Promise<boolean> {
-        throw new Error("This data import from repository");
+    public async destroy(galeryId: string): Promise<boolean> {
+        const data = await this._repository.show(galeryId);
+        await this._repository.destroy(galeryId);
+        return true;
     }
 
     public async getDataTable(
         param: TDataTableParam
     ): Promise<ITableData<IGalery>> {
-        throw new Error("This data import from repository");
+        const data = await this._repository.getDataTable(param);
+        console.log(data.data);
+        return data.unmarshal();
     }
 }

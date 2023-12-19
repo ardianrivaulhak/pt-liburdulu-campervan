@@ -4,9 +4,9 @@ import { TableData } from "../models/table-data";
 
 export interface GaleryRepository {
     get(): Promise<Galery[]>;
-    show(id: string): Promise<Galery>;
+    show(galeryId: string): Promise<Galery>;
     getDataTable(param: TDataTableParam): Promise<TableData<IGalery>>;
     store(_galery: IGalery): Promise<Galery>;
-    update(id: string, _galery: IGalery): Promise<Galery>;
-    destroy(id: string): Promise<boolean>;
+    update(galeryId: string, _galery: IGalery): Promise<Galery>;
+    destroy(galeryId: string): Promise<boolean>;
 }

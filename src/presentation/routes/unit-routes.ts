@@ -15,13 +15,13 @@ export class UnitRoutes {
         router.get(
             `/${this.route}`,
             asyncWrap(
-                this.UnitControllerInstance.get.bind(
+                this.UnitControllerInstance.getDataTable.bind(
                     this.UnitControllerInstance
                 )
             )
         );
         router.get(
-            `/${this.route}/:id`,
+            `/${this.route}/:unitId`,
             asyncWrap(
                 this.UnitControllerInstance.show.bind(
                     this.UnitControllerInstance
@@ -29,7 +29,7 @@ export class UnitRoutes {
             )
         );
         router.put(
-            `/${this.route}/:id`,
+            `/${this.route}/:unitId`,
             asyncWrap(
                 this.UnitControllerInstance.update.bind(
                     this.UnitControllerInstance
@@ -41,6 +41,15 @@ export class UnitRoutes {
             `/${this.route}`,
             asyncWrap(
                 this.UnitControllerInstance.store.bind(
+                    this.UnitControllerInstance
+                )
+            )
+        );
+
+        router.delete(
+            `/${this.route}/:unitId`,
+            asyncWrap(
+                this.UnitControllerInstance.destroy.bind(
                     this.UnitControllerInstance
                 )
             )
